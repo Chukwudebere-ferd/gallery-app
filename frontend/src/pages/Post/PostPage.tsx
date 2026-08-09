@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { media } from '../services/mockData'
-import Avatar from '../components/ui/Avatar'
-import Button from '../components/ui/Button'
-import CommentSection from '../components/comments/CommentSection'
+import { media } from '../../services/mockData'
+import Avatar from '../../components/ui/Avatar'
+import Button from '../../components/ui/Button'
+import CommentSection from '../../components/comments/CommentSection'
+import { useGuestPrompt } from '../../components/auth/useGuestPrompt'
 import {
   ArrowLeftIcon,
   HeartIcon,
@@ -11,7 +12,7 @@ import {
   ShareIcon,
   BookmarkIcon,
   PlayIcon,
-} from '../components/ui/icons'
+} from '../../components/ui/icons'
 import './PostPage.css'
 
 function formatCount(n: number): string {
@@ -28,8 +29,23 @@ export default function PostPage() {
   const [saved, setSaved] = useState(item?.saved ?? false)
   const [copied, setCopied] = useState(false)
   const commentsRef = useRef<HTMLDivElement>(null)
+  const { guard, element: prompt } = useGuestPrompt()
 
   const likeCount = (item?.likes ?? 0) + (liked && !item?.liked ? 1 : 0)
+
+  const toggleLike = () => {
+    if (guard('like this post')) return
+    setLiked((v) => !v)
+  }
+
+  const toggleSave = () => {
+    if (guard('save this post')) return
+    setSaved((v) => !v)
+  }
+
+  const follow = () => {
+    guard('follow this camper')
+  }
 
   const share = async () => {
     const url = `https://campfire.gallery/p/${item?.id ?? ''}`
@@ -64,6 +80,7 @@ export default function PostPage() {
 
   return (
     <article className="post">
+      {prompt}
       <div className="post__back">
         <button
           type="button"
@@ -91,7 +108,7 @@ export default function PostPage() {
               <button
                 type="button"
                 className={saved ? 'post__save post__save--on' : 'post__save'}
-                onClick={() => setSaved((v) => !v)}
+                onClick={toggleSave}
               >
                 <BookmarkIcon filled={saved} />
                 {saved ? 'Saved' : 'Save'}
@@ -109,7 +126,7 @@ export default function PostPage() {
               <strong>{item.author.name}</strong>
               <span>2 days ago · {item.type === 'video' ? 'Video' : 'Photo'}</span>
             </div>
-            <Button variant="secondary" size="xs" className="post__follow">
+            <Button variant="secondary" size="xs" className="post__follow" onClick={follow}>
               Follow
             </Button>
           </div>
@@ -118,7 +135,7 @@ export default function PostPage() {
             <button
               type="button"
               className={liked ? 'post__act post__act--like post__act--on' : 'post__act post__act--like'}
-              onClick={() => setLiked((v) => !v)}
+              onClick={toggleLike}
               aria-pressed={liked}
               aria-label={liked ? 'Unlike this post' : 'Like this post'}
             >

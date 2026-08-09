@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import type { DragEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
-import ChipRow from '../components/feed/ChipRow'
-import Field from '../components/ui/Field'
-import { useTopics } from '../context/topicsContext'
+import Button from '../../components/ui/Button'
+import ChipRow from '../../components/feed/ChipRow'
+import Field from '../../components/ui/Field'
+import { useTopics } from '../../context/topicsContext'
 import {
   CameraIcon,
   UploadIcon,
@@ -12,7 +12,7 @@ import {
   CloseIcon,
   PlayIcon,
   PlusIcon,
-} from '../components/ui/icons'
+} from '../../components/ui/icons'
 import './UploadPage.css'
 
 type Phase = 'idle' | 'ready' | 'uploading' | 'done'

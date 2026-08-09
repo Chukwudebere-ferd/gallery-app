@@ -75,6 +75,39 @@
   cursor: default;
 }
 
+/* Sign out from the verify page */
+.flow-logout {
+  align-self: center;
+  margin-top: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-faint);
+  transition:
+    color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.flow-logout:hover:not(:disabled) {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.flow-logout:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* Inline error / dev-code notices */
+.flow-alert {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: var(--fs-sm);
+}
+
 .auth__show {
   display: inline-flex;
 }

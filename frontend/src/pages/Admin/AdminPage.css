@@ -315,6 +315,47 @@
   max-width: 34ch;
 }
 
+/* Loading / status helpers */
+.admin__loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+  color: var(--text-faint);
+}
+
+.admin__error {
+  color: var(--danger);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-3);
+}
+
+.admin__count {
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-2);
+}
+
+.admin__retry {
+  margin-top: var(--space-2);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.admin__retry:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
 /* Upload hint */
 .admin__upload-hint {
   margin-bottom: var(--space-4);

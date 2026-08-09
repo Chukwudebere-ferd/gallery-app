@@ -285,6 +285,37 @@
   width: 100%;
 }
 
+.auth__error {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: var(--fs-sm);
+}
+
+.auth__guest {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+.auth__guest-btn {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  transition:
+    color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+
+.auth__guest-btn:hover {
+  color: var(--text);
+}
+
+.auth__guest-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 900px) {
   .auth {
     display: block;

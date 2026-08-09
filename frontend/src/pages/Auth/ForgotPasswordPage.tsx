@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AuthFlow from '../components/auth/AuthFlow'
-import Field from '../components/ui/Field'
-import Button from '../components/ui/Button'
-import { MailIcon, SendIcon } from '../components/ui/icons'
+import AuthFlow from '../../components/auth/AuthFlow'
+import Field from '../../components/ui/Field'
+import Button from '../../components/ui/Button'
+import { MailIcon, SendIcon } from '../../components/ui/icons'
+import { sendAuthCode } from '../../services/api'
 import './AuthFlowPages.css'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -15,7 +16,7 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     if (!EMAIL_RE.test(email)) {
       setError('Enter a valid email address')
@@ -23,9 +24,13 @@ export default function ForgotPasswordPage() {
     }
     setError('')
     setLoading(true)
-    window.setTimeout(() => {
-      void navigate(`/verify?purpose=reset&email=${encodeURIComponent(email)}`)
-    }, 700)
+    try {
+      await sendAuthCode(email.trim(), 'reset')
+      void navigate(`/verify?purpose=reset&email=${encodeURIComponent(email.trim())}`)
+    } catch (err) {
+      setLoading(false)
+      setError(err instanceof Error ? err.message : 'Something went wrong')
+    }
   }
 
   return (

@@ -1,25 +1,34 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import AuthFlow from '../components/auth/AuthFlow'
-import Field from '../components/ui/Field'
-import Button from '../components/ui/Button'
-import { LockIcon, EyeIcon, EyeOffIcon, CheckIcon } from '../components/ui/icons'
+import { useLocation, useNavigate } from 'react-router-dom'
+import AuthFlow from '../../components/auth/AuthFlow'
+import Field from '../../components/ui/Field'
+import Button from '../../components/ui/Button'
+import { LockIcon, EyeIcon, EyeOffIcon, CheckIcon } from '../../components/ui/icons'
+import { resetPassword } from '../../services/api'
 import './AuthFlowPages.css'
+
+interface ResetState {
+  email: string
+  token: string
+}
 
 export default function ResetPasswordPage() {
   const navigate = useNavigate()
-  const [params] = useSearchParams()
-  const email = params.get('email') ?? 'your account'
+  const location = useLocation()
+  const state = location.state as ResetState | null
 
   const [show, setShow] = useState(false)
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [errors, setErrors] = useState<{ password?: string; confirm?: string }>({})
+  const [formError, setFormError] = useState('')
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
-  const submit = (e: FormEvent) => {
+  const email = state?.email ?? 'your account'
+
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     const next: typeof errors = {}
     if (password.length < 8) {
@@ -30,12 +39,21 @@ export default function ResetPasswordPage() {
     }
     setErrors(next)
     if (Object.keys(next).length > 0) return
+
     setLoading(true)
-    window.setTimeout(() => {
+    setFormError('')
+    try {
+      if (!state?.token) {
+        throw new Error('Your reset session has expired. Please start over.')
+      }
+      await resetPassword(email, state.token, password)
       setLoading(false)
       setDone(true)
-      window.setTimeout(() => void navigate('/'), 1300)
-    }, 700)
+      window.setTimeout(() => void navigate('/auth'), 1600)
+    } catch (err) {
+      setLoading(false)
+      setFormError(err instanceof Error ? err.message : 'Something went wrong')
+    }
   }
 
   return (
@@ -86,12 +104,14 @@ export default function ResetPasswordPage() {
             error={errors.confirm}
             autoComplete="new-password"
           />
-          <Button
-            type="submit"
-            size="md"
-            className="flow-form__submit"
-            disabled={loading}
-          >
+
+          {formError && (
+            <p className="flow-alert" role="alert">
+              {formError}
+            </p>
+          )}
+
+          <Button type="submit" size="md" className="flow-form__submit" disabled={loading}>
             {loading ? 'Saving…' : 'Update password'}
           </Button>
         </form>

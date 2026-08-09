@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
-import Field from '../components/ui/Field'
-import FlameLoader from '../components/ui/FlameLoader'
-import Flame from '../components/ui/Flame'
+import Button from '../../components/ui/Button'
+import Field from '../../components/ui/Field'
+import FlameLoader from '../../components/ui/FlameLoader'
+import Flame from '../../components/ui/Flame'
+import { useUser } from '../../context/userContext'
+import { authErrorMessage, isAuthCancelled } from '../../services/firebase'
 import {
   LogoMark,
   MailIcon,
@@ -13,7 +15,7 @@ import {
   EyeIcon,
   EyeOffIcon,
   GoogleIcon,
-} from '../components/ui/icons'
+} from '../../components/ui/icons'
 import './AuthPage.css'
 
 type Mode = 'signin' | 'signup'
@@ -31,6 +33,7 @@ const USERNAME_RE = /^[a-z0-9_]{3,20}$/
 
 export default function AuthPage() {
   const navigate = useNavigate()
+  const { status, role, signIn, signUp, signInWithGoogle } = useUser()
   const [mode, setMode] = useState<Mode>('signin')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -40,16 +43,26 @@ export default function AuthPage() {
   const [consent, setConsent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<FieldErrors>({})
+  const [formError, setFormError] = useState('')
 
-  const finish = () => {
-    setLoading(true)
-    window.setTimeout(() => {
-      void navigate(mode === 'signup' ? '/verify?purpose=verify' : '/')
-    }, 900)
-  }
+  const skipRedirectRef = useRef(false)
 
-  const submit = (e: FormEvent) => {
-    e.preventDefault()
+  const go = useCallback(() => {
+    if (role === null) return
+    void navigate(role === 'admin' ? '/admin' : '/')
+  }, [navigate, role])
+
+  useEffect(() => {
+    if (status === 'authed' && role !== null) {
+      if (skipRedirectRef.current) {
+        skipRedirectRef.current = false
+        return
+      }
+      go()
+    }
+  }, [status, role, go])
+
+  const validate = (): FieldErrors => {
     const next: FieldErrors = {}
 
     if (mode === 'signup') {
@@ -74,9 +87,51 @@ export default function AuthPage() {
       }
     }
 
+    return next
+  }
+
+  const submit = async (e: FormEvent) => {
+    e.preventDefault()
+    const next = validate()
+
     setErrors(next)
     if (Object.keys(next).length > 0) return
-    finish()
+
+    setLoading(true)
+    setFormError('')
+    try {
+      if (mode === 'signup') {
+        skipRedirectRef.current = true
+        await signUp(email.trim(), password)
+        void navigate(
+          `/verify?purpose=verify&email=${encodeURIComponent(email.trim())}`,
+        )
+        return
+      }
+      await signIn(identifier.trim(), password)
+    } catch (err) {
+      setFormError(authErrorMessage(err))
+      setLoading(false)
+      return
+    }
+    go()
+  }
+
+  const submitGoogle = async () => {
+    setLoading(true)
+    setFormError('')
+    try {
+      await signInWithGoogle()
+    } catch (err) {
+      if (!isAuthCancelled(err)) setFormError(authErrorMessage(err))
+      setLoading(false)
+      return
+    }
+    go()
+  }
+
+  const continueAsGuest = () => {
+    void navigate('/')
   }
 
   return (
@@ -227,6 +282,12 @@ export default function AuthPage() {
               </label>
             )}
 
+            {formError && (
+              <p className="auth__error" role="alert">
+                {formError}
+              </p>
+            )}
+
             <Button type="submit" size="md" className="auth__submit" disabled={loading}>
               {mode === 'signin' ? 'Sign in' : 'Create account'}
             </Button>
@@ -239,13 +300,25 @@ export default function AuthPage() {
               variant="secondary"
               size="md"
               className="auth__google"
-              onClick={finish}
+              onClick={() => void submitGoogle()}
               disabled={loading}
             >
               <GoogleIcon />
               Continue with Google
             </Button>
           </form>
+
+          <div className="auth__guest">
+            <button
+              type="button"
+              className="auth__guest-btn"
+              onClick={continueAsGuest}
+              disabled={loading}
+            >
+              Skip for now — browse as a guest
+            </button>
+          </div>
+
           {loading && (
             <div className="auth__loader" role="status">
               <FlameLoader size={96} label="Lighting your campfire…" />

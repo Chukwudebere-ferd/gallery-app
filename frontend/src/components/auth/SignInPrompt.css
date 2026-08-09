@@ -1,0 +1,90 @@
+.signin-prompt {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: rgba(20, 12, 6, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fade-up var(--dur-med) var(--ease) both;
+}
+
+.signin-prompt__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-3);
+  outline: none;
+  text-align: center;
+  animation: slide-up var(--dur-med) var(--ease) both;
+}
+
+.signin-prompt__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.signin-prompt__close:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.signin-prompt__close svg {
+  width: 18px;
+  height: 18px;
+}
+
+.signin-prompt__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.signin-prompt__icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.signin-prompt__title {
+  font-size: var(--fs-xl);
+  margin-bottom: var(--space-2);
+}
+
+.signin-prompt__copy {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  margin-bottom: var(--space-5);
+}
+
+.signin-prompt__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.signin-prompt__actions .btn {
+  width: 100%;
+}

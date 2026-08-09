@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { MediaItem } from '../../services/mockData'
 import Avatar from '../ui/Avatar'
+import { useGuestPrompt } from '../auth/useGuestPrompt'
 import {
   HeartIcon,
   CommentIcon,
@@ -30,11 +31,18 @@ export default function PhotoCard({ item, index }: PhotoCardProps) {
   const [saved, setSaved] = useState(item.saved)
   const [copied, setCopied] = useState(false)
   const [imageFailed, setImageFailed] = useState(false)
+  const { guard, element: prompt } = useGuestPrompt()
 
   const likeCount = item.likes + (liked && !item.liked ? 1 : 0)
 
-  const toggleLike = () => setLiked((v) => !v)
-  const toggleSave = () => setSaved((v) => !v)
+  const toggleLike = () => {
+    if (guard('like this photo')) return
+    setLiked((v) => !v)
+  }
+  const toggleSave = () => {
+    if (guard('save this photo')) return
+    setSaved((v) => !v)
+  }
 
   const share = async () => {
     const url = `https://campfire.gallery/p/${item.id}`
@@ -62,6 +70,7 @@ export default function PhotoCard({ item, index }: PhotoCardProps) {
 
   return (
     <article className="pc" style={mediaStyle}>
+      {prompt}
       <div className="pc__media">
         <Link
           to={`/post/${item.id}`}

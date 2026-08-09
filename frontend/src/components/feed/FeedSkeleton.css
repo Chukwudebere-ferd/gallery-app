@@ -1,0 +1,28 @@
+.feed-skeleton {
+  animation: fade-up var(--dur-med) var(--ease) both;
+}
+
+.feed-skeleton__card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2);
+  break-inside: avoid;
+  margin-bottom: var(--space-4);
+}
+
+.feed-skeleton__media {
+  border-radius: var(--radius-md);
+}
+
+.feed-skeleton__meta {
+  padding: var(--space-3) var(--space-2) var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.feed-skeleton__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}

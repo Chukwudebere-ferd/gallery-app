@@ -12,7 +12,10 @@ export interface AppHeaderProps {
 
 export default function AppHeader({ query, onQueryChange }: AppHeaderProps) {
   const navigate = useNavigate()
-  const { user } = useUser()
+  const { user, status } = useUser()
+
+  const signIn = () =>
+    void navigate(`/auth?next=${encodeURIComponent('/')}`)
 
   return (
     <header className="app-header">
@@ -42,23 +45,36 @@ export default function AppHeader({ query, onQueryChange }: AppHeaderProps) {
         </form>
 
         <div className="app-header__actions">
-          <Button
-            variant="primary"
-            size="sm"
-            className="app-header__upload"
-            onClick={() => void navigate('/upload')}
-          >
-            <CameraIcon />
-            <span>Upload</span>
-          </Button>
-          <button
-            type="button"
-            className="app-header__avatar"
-            aria-label="View your profile"
-            onClick={() => void navigate('/profile')}
-          >
-            <Avatar name={user.name} src={user.avatarUrl} size="sm" />
-          </button>
+          {status === 'guest' ? (
+            <Button
+              variant="secondary"
+              size="sm"
+              className="app-header__signin"
+              onClick={signIn}
+            >
+              Sign in
+            </Button>
+          ) : status === 'authed' ? (
+            <>
+              <Button
+                variant="primary"
+                size="sm"
+                className="app-header__upload"
+                onClick={() => void navigate('/upload')}
+              >
+                <CameraIcon />
+                <span>Upload</span>
+              </Button>
+              <button
+                type="button"
+                className="app-header__avatar"
+                aria-label="View your profile"
+                onClick={() => void navigate('/profile')}
+              >
+                <Avatar name={user?.name ?? ''} src={user?.avatarUrl} size="sm" />
+              </button>
+            </>
+          ) : null}
         </div>
       </div>
     </header>

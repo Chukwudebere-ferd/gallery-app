@@ -1,17 +1,17 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { media } from '../services/mockData'
-import { useUser } from '../context/userContext'
-import Avatar from '../components/ui/Avatar'
-import Button from '../components/ui/Button'
-import MasonryGrid from '../components/feed/MasonryGrid'
+import { media } from '../../services/mockData'
+import { useUser } from '../../context/userContext'
+import Avatar from '../../components/ui/Avatar'
+import Button from '../../components/ui/Button'
+import MasonryGrid from '../../components/feed/MasonryGrid'
 import {
   GridIcon,
   PlaySquareIcon,
   BookmarkIcon,
   ShareIcon,
   PenIcon,
-} from '../components/ui/icons'
+} from '../../components/ui/icons'
 import './ProfilePage.css'
 
 type Tab = 'posts' | 'videos' | 'saved'
@@ -36,6 +36,8 @@ export default function ProfilePage() {
         return media.filter((m) => m.type === 'photo')
     }
   }, [tab])
+
+  if (!user) return null
 
   const shareProfile = async () => {
     const url = 'https://campfire.gallery/mayacamp'

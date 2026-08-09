@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
-import { media } from '../services/mockData'
-import { useShell } from '../components/layout/useShell'
-import { useTopics } from '../context/topicsContext'
-import ChipRow from '../components/feed/ChipRow'
-import MasonryGrid from '../components/feed/MasonryGrid'
-import Button from '../components/ui/Button'
-import FlameLoader from '../components/ui/FlameLoader'
-import { SearchIcon } from '../components/ui/icons'
+import { media } from '../../services/mockData'
+import { useShell } from '../../components/layout/useShell'
+import { useTopics } from '../../context/topicsContext'
+import ChipRow from '../../components/feed/ChipRow'
+import MasonryGrid from '../../components/feed/MasonryGrid'
+import FeedSkeleton from '../../components/feed/FeedSkeleton'
+import Button from '../../components/ui/Button'
+import FlameLoader from '../../components/ui/FlameLoader'
+import { SearchIcon } from '../../components/ui/icons'
 import './HomePage.css'
 
 export default function HomePage() {
@@ -43,9 +44,7 @@ export default function HomePage() {
       <ChipRow chips={chips} active={tag} onSelect={setTag} />
 
       {status === 'loading' ? (
-        <div className="home__status" role="status">
-          <FlameLoader size={88} label="Fetching your feed…" />
-        </div>
+        <FeedSkeleton />
       ) : status === 'error' ? (
         <div className="home__status" role="alert">
           <FlameLoader

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { LogoMark, ShieldCheckIcon, ArrowLeftIcon } from '../components/ui/icons'
+import { LogoMark, ShieldCheckIcon, ArrowLeftIcon } from '../../components/ui/icons'
 import './PrivacyPage.css'
 
 export default function PrivacyPage() {

@@ -1,25 +1,27 @@
 import { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useUser } from '../context/userContext'
-import Avatar from '../components/ui/Avatar'
-import Button from '../components/ui/Button'
-import Field from '../components/ui/Field'
-import { ArrowLeftIcon, CameraIcon, CheckIcon, LogoutIcon } from '../components/ui/icons'
+import { useUser } from '../../context/userContext'
+import Avatar from '../../components/ui/Avatar'
+import Button from '../../components/ui/Button'
+import Field from '../../components/ui/Field'
+import { ArrowLeftIcon, CameraIcon, CheckIcon, LogoutIcon } from '../../components/ui/icons'
 import './SettingsPage.css'
 
 export default function SettingsPage() {
   const { user, updateUser, signOut } = useUser()
   const navigate = useNavigate()
-  const [name, setName] = useState(user.name)
-  const [username, setUsername] = useState(user.username)
-  const [bio, setBio] = useState(user.bio)
-  const [avatarUrl, setAvatarUrl] = useState(user.avatarUrl)
+  const [name, setName] = useState(user?.name ?? '')
+  const [username, setUsername] = useState(user?.username ?? '')
+  const [bio, setBio] = useState(user?.bio ?? '')
+  const [avatarUrl, setAvatarUrl] = useState(user?.avatarUrl ?? '')
   const [emailNotifications, setEmailNotifications] = useState(
-    user.emailNotifications,
+    user?.emailNotifications ?? true,
   )
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+
+  if (!user) return null
 
   const nameInvalid = name.trim().length < 2
 
@@ -169,8 +171,7 @@ export default function SettingsPage() {
           size="sm"
           className="settings__logout"
           onClick={() => {
-            signOut()
-            navigate('/auth')
+            void signOut().then(() => navigate('/auth'))
           }}
         >
           <LogoutIcon />

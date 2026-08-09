@@ -6,12 +6,26 @@ export interface UserProfile {
   bio: string
   avatarUrl: string
   emailNotifications: boolean
+  email?: string
 }
 
+export type AuthStatus = 'loading' | 'guest' | 'authed'
+
+export type UserRole = 'admin' | 'user'
+
 export interface UserContextValue {
-  user: UserProfile
+  user: UserProfile | null
+  status: AuthStatus
+  isGuest: boolean
+  role: UserRole | null
+  isAdmin: boolean
+  verified: boolean | null
   updateUser: (patch: Partial<UserProfile>) => void
-  signOut: () => void
+  refreshVerification: () => Promise<void>
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string) => Promise<void>
+  signInWithGoogle: () => Promise<void>
+  signOut: () => Promise<void>
 }
 
 export const UserContext = createContext<UserContextValue | null>(null)

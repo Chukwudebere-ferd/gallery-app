@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { media } from '../services/mockData'
-import MasonryGrid from '../components/feed/MasonryGrid'
-import { BookmarkIcon, HeartIcon } from '../components/ui/icons'
+import { media } from '../../services/mockData'
+import MasonryGrid from '../../components/feed/MasonryGrid'
+import { BookmarkIcon, HeartIcon } from '../../components/ui/icons'
 import './SavedPage.css'
 
 export default function SavedPage() {

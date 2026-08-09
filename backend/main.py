@@ -1,7 +1,19 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI(title="Camp Gallery API")
+from app import db
+from app.routers import admin, auth
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    db.init_db()
+    yield
+
+
+app = FastAPI(title="Camp Gallery API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -10,6 +22,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(admin.router)
+app.include_router(auth.router)
 
 
 @app.get("/")

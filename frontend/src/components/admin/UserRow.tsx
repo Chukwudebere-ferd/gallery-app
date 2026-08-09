@@ -2,16 +2,17 @@ import Avatar from '../ui/Avatar'
 import Badge from '../ui/Badge'
 import Button from '../ui/Button'
 import { ShieldCheckIcon, BanIcon, RotateCcwIcon } from '../ui/icons'
-import type { AdminUser } from '../../services/mockAdmin'
+import type { AdminUser } from '../../services/adminApi'
 import './UserRow.css'
 
 export interface UserRowProps {
   user: AdminUser
   onToggleVerified: (id: string) => void
   onToggleBan: (id: string) => void
+  busy?: boolean
 }
 
-export default function UserRow({ user, onToggleVerified, onToggleBan }: UserRowProps) {
+export default function UserRow({ user, onToggleVerified, onToggleBan, busy }: UserRowProps) {
   return (
     <li className="user-row">
       <Avatar name={user.name} src={user.avatarUrl} size="md" />
@@ -30,6 +31,7 @@ export default function UserRow({ user, onToggleVerified, onToggleBan }: UserRow
           variant={user.verified ? 'ghost' : 'secondary'}
           size="xs"
           aria-pressed={user.verified}
+          disabled={busy}
           onClick={() => onToggleVerified(user.id)}
         >
           <ShieldCheckIcon />
@@ -39,6 +41,7 @@ export default function UserRow({ user, onToggleVerified, onToggleBan }: UserRow
           variant={user.banned ? 'secondary' : 'ghost'}
           size="xs"
           className={user.banned ? '' : 'user-row__ban'}
+          disabled={busy}
           onClick={() => onToggleBan(user.id)}
         >
           {user.banned ? <RotateCcwIcon /> : <BanIcon />}

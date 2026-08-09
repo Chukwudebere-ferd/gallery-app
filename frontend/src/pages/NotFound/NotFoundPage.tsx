@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
-import { LogoMark, ArrowLeftIcon } from '../components/ui/icons'
+import Button from '../../components/ui/Button'
+import { LogoMark, ArrowLeftIcon } from '../../components/ui/icons'
 import './NotFoundPage.css'
 
 export default function NotFoundPage() {

@@ -1,0 +1,6 @@
+.require-admin {
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
