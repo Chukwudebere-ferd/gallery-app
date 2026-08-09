@@ -90,6 +90,13 @@
   --z-toast: 800;
 }
 
+@media (max-width: 720px) {
+  :root {
+    /* Mobile header stacks into two rows (brand + actions / search). */
+    --header-h: 116px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;

@@ -109,16 +109,32 @@
 
 @media (max-width: 720px) {
   .app-header__inner {
-    flex-wrap: wrap;
-    height: auto;
-    padding-top: var(--space-3);
-    padding-bottom: var(--space-3);
-    gap: var(--space-3);
-    row-gap: var(--space-3);
+    height: var(--header-h);
+    display: grid;
+    grid-template-areas:
+      'brand actions'
+      'search search';
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: 44px 44px;
+    gap: 8px;
+    padding: 10px var(--space-5);
+  }
+
+  .app-header__logo {
+    grid-area: brand;
   }
 
   .app-header__actions {
-    margin-left: auto;
+    grid-area: actions;
+    margin-left: 0;
+  }
+
+  .app-header__search {
+    grid-area: search;
+    order: 0;
+    flex-basis: auto;
+    max-width: none;
+    margin-inline: 0;
   }
 
   .app-header__upload span {
@@ -128,13 +144,5 @@
   .app-header__upload {
     width: 38px;
     padding: 0;
-  }
-
-  /* Search moves to its own full-width row */
-  .app-header__search {
-    order: 3;
-    flex-basis: 100%;
-    max-width: none;
-    margin-inline: 0;
   }
 }
