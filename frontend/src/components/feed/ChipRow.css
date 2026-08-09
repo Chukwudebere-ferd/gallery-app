@@ -1,0 +1,48 @@
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 2px;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chips__pill {
+  flex-shrink: 0;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.chips__pill:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.chips__pill:active {
+  transform: scale(0.96);
+}
+
+.chips__pill--active {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+.chips__pill--active:hover {
+  color: var(--bg);
+}

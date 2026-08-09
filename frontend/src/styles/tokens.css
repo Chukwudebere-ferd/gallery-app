@@ -1,0 +1,123 @@
+/* Design tokens — single source of truth for colors, type, spacing, motion.
+   All components must consume these variables, never hardcoded values. */
+
+:root {
+  color-scheme: light;
+
+  /* Brand palette — warm campfire */
+  --accent: #ff6b35;
+  --accent-hover: #f0571f;
+  --accent-press: #d94712;
+  --accent-soft: #fff1e9;
+  --on-accent: #ffffff;
+  --ring: rgba(255, 107, 53, 0.35);
+
+  /* Neutrals (warm-tinted) */
+  --bg: #fbf8f4;
+  --bg-glass: rgba(251, 248, 244, 0.84);
+  --surface: #ffffff;
+  --surface-2: #f4efe8;
+  --border: #eee7db;
+  --border-strong: #d8cdbd;
+  --text: #2b2319;
+  --text-muted: #6f6351;
+  --text-faint: #a3977f;
+
+  /* Status */
+  --danger: #e5484d;
+  --danger-soft: #fdebed;
+  --success: #2e7d32;
+  --success-soft: #e7f4e8;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(56, 38, 10, 0.06), 0 1px 3px rgba(56, 38, 10, 0.08);
+  --shadow-2: 0 2px 8px rgba(56, 38, 10, 0.09), 0 12px 24px rgba(56, 38, 10, 0.08);
+  --shadow-3: 0 10px 36px rgba(56, 38, 10, 0.18);
+
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Typography */
+  --font-sans: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 22px;
+  --fs-2xl: 28px;
+  --fs-3xl: 36px;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+
+  /* Motion */
+  --dur-fast: 140ms;
+  --dur-med: 240ms;
+  --dur-slow: 420ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout */
+  --header-h: 64px;
+  --footer-nav-h: 60px;
+  --content-max: 1240px;
+
+  /* Z-index */
+  --z-header: 500;
+  --z-nav: 550;
+  --z-overlay: 700;
+  --z-toast: 800;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --accent: #ff9169;
+    --accent-hover: #ffa580;
+    --accent-press: #ff7840;
+    --accent-soft: rgba(255, 145, 105, 0.14);
+    --on-accent: #1c0f06;
+    --ring: rgba(255, 145, 105, 0.35);
+
+    --bg: #14120e;
+    --bg-glass: rgba(20, 18, 14, 0.78);
+    --surface: #1e1a13;
+    --surface-2: #28231a;
+    --border: #322c22;
+    --border-strong: #463d2f;
+    --text: #f4efe6;
+    --text-muted: #b3a793;
+    --text-faint: #7c7260;
+
+    --danger: #f0697a;
+    --danger-soft: rgba(240, 105, 122, 0.14);
+    --success: #7ac27e;
+    --success-soft: rgba(122, 194, 126, 0.14);
+
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+    --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.45), 0 14px 24px rgba(0, 0, 0, 0.35);
+    --shadow-3: 0 10px 36px rgba(0, 0, 0, 0.6);
+  }
+}

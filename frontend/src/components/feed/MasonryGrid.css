@@ -1,0 +1,25 @@
+/* Native CSS columns give the Pinterest masonry rhythm — light and dependency-free. */
+.masonry {
+  columns: 4 240px;
+  column-gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .masonry {
+    columns: 3 200px;
+  }
+}
+
+@media (max-width: 720px) {
+  .masonry {
+    columns: 2 150px;
+    column-gap: var(--space-3);
+  }
+}
+
+@media (max-width: 380px) {
+  .masonry {
+    columns: 1;
+  }
+}

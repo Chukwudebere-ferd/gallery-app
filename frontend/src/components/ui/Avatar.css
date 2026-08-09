@@ -1,0 +1,23 @@
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+.avatar--fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-weight: var(--fw-bold);
+  color: hsl(var(--hue) 55% 30%);
+  background: hsl(var(--hue) 45% 86%);
+}
+
+@media (prefers-color-scheme: dark) {
+  .avatar--fallback {
+    color: hsl(var(--hue) 60% 74%);
+    background: hsl(var(--hue) 30% 22%);
+  }
+}

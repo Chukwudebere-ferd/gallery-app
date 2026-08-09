@@ -1,0 +1,202 @@
+export type MediaType = 'photo' | 'video'
+
+export interface MediaAuthor {
+  name: string
+  avatarUrl?: string
+}
+
+export interface MediaItem {
+  id: string
+  title: string
+  author: MediaAuthor
+  image: string
+  width: number
+  height: number
+  likes: number
+  comments: number
+  saved: boolean
+  liked: boolean
+  type: MediaType
+  tag: string
+}
+
+export const tags = [
+  'All',
+  'Campfires',
+  'Sunrise',
+  'Trails',
+  'Water',
+  'Night sky',
+  'Adventure',
+]
+
+export const media: MediaItem[] = [
+  {
+    id: 'p01',
+    title: 'Golden hour by the lake',
+    author: { name: 'Elena Martins', avatarUrl: 'https://i.pravatar.cc/150?img=5' },
+    image: 'https://picsum.photos/seed/campfire1/700/980',
+    width: 700,
+    height: 980,
+    likes: 3421,
+    comments: 128,
+    saved: true,
+    liked: false,
+    type: 'photo',
+    tag: 'Sunrise',
+  },
+  {
+    id: 'p02',
+    title: 'Midnight log fire',
+    author: { name: 'Marcus Webb', avatarUrl: 'https://i.pravatar.cc/150?img=64' },
+    image: 'https://picsum.photos/seed/campfire2/1200/760',
+    width: 1200,
+    height: 760,
+    likes: 1287,
+    comments: 41,
+    saved: false,
+    liked: true,
+    type: 'photo',
+    tag: 'Campfires',
+  },
+  {
+    id: 'p03',
+    title: 'Base camp after the storm',
+    author: { name: 'Sofia Nomi', avatarUrl: 'https://i.pravatar.cc/150?img=47' },
+    image: 'https://picsum.photos/seed/campfire3/760/1080',
+    width: 760,
+    height: 1080,
+    likes: 892,
+    comments: 34,
+    saved: false,
+    liked: false,
+    type: 'video',
+    tag: 'Night sky',
+  },
+  {
+    id: 'p04',
+    title: 'Trail crew at first light',
+    author: { name: 'Jonas Pereira', avatarUrl: 'https://i.pravatar.cc/150?img=12' },
+    image: 'https://picsum.photos/seed/campfire4/900/900',
+    width: 900,
+    height: 900,
+    likes: 2140,
+    comments: 96,
+    saved: true,
+    liked: true,
+    type: 'photo',
+    tag: 'Trails',
+  },
+  {
+    id: 'p05',
+    title: 'River roll — slow motion',
+    author: { name: 'Amara Diallo', avatarUrl: 'https://i.pravatar.cc/150?img=32' },
+    image: 'https://picsum.photos/seed/campfire5/1440/820',
+    width: 1440,
+    height: 820,
+    likes: 560,
+    comments: 18,
+    saved: false,
+    liked: false,
+    type: 'video',
+    tag: 'Water',
+  },
+  {
+    id: 'p06',
+    title: 'Fog lifting over camp',
+    author: { name: 'Theo Lindqvist', avatarUrl: 'https://i.pravatar.cc/150?img=68' },
+    image: 'https://picsum.photos/seed/campfire6/720/1080',
+    width: 720,
+    height: 1080,
+    likes: 1560,
+    comments: 62,
+    saved: false,
+    liked: true,
+    type: 'photo',
+    tag: 'Sunrise',
+  },
+  {
+    id: 'p07',
+    title: 'Cozy camp kitchen moment',
+    author: { name: 'Nia Sharma', avatarUrl: 'https://i.pravatar.cc/150?img=44' },
+    image: 'https://picsum.photos/seed/campfire7/860/1140',
+    width: 860,
+    height: 1140,
+    likes: 990,
+    comments: 45,
+    saved: true,
+    liked: false,
+    type: 'photo',
+    tag: 'Campfires',
+  },
+  {
+    id: 'p08',
+    title: 'Milky way over camp',
+    author: { name: 'Diego Costa', avatarUrl: 'https://i.pravatar.cc/150?img=59' },
+    image: 'https://picsum.photos/seed/campfire8/800/1200',
+    width: 800,
+    height: 1200,
+    likes: 4810,
+    comments: 203,
+    saved: true,
+    liked: true,
+    type: 'photo',
+    tag: 'Night sky',
+  },
+  {
+    id: 'p09',
+    title: 'Sundown from the ridge',
+    author: { name: 'Hana Mori', avatarUrl: 'https://i.pravatar.cc/150?img=25' },
+    image: 'https://picsum.photos/seed/campfire9/1200/800',
+    width: 1200,
+    height: 800,
+    likes: 2255,
+    comments: 77,
+    saved: false,
+    liked: false,
+    type: 'photo',
+    tag: 'Sunrise',
+  },
+  {
+    id: 'p10',
+    title: 'High alpine descent',
+    author: { name: 'Luka Novak', avatarUrl: 'https://i.pravatar.cc/150?img=53' },
+    image: 'https://picsum.photos/seed/campfire10/1440/900',
+    width: 1440,
+    height: 900,
+    likes: 3180,
+    comments: 142,
+    saved: true,
+    liked: false,
+    type: 'photo',
+    tag: 'Trails',
+  },
+  {
+    id: 'p11',
+    title: 'Camp dinner firelight',
+    author: { name: 'Elena Martins', avatarUrl: 'https://i.pravatar.cc/150?img=5' },
+    image: 'https://picsum.photos/seed/campfire11/700/1050',
+    width: 700,
+    height: 1050,
+    likes: 734,
+    comments: 21,
+    saved: false,
+    liked: false,
+    type: 'video',
+    tag: 'Campfires',
+  },
+  {
+    id: 'p12',
+    title: 'Night river reflections',
+    author: { name: 'Nia Sharma', avatarUrl: 'https://i.pravatar.cc/150?img=44' },
+    image: 'https://picsum.photos/seed/campfire12/900/760',
+    width: 900,
+    height: 760,
+    likes: 1120,
+    comments: 38,
+    saved: false,
+    liked: true,
+    type: 'photo',
+    tag: 'Night sky',
+  },
+]
