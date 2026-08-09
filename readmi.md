@@ -16,9 +16,9 @@ Build a lightweight camp image gallery app with:
 | Frontend | React + TypeScript + CSS, Vite |
 | Backend | FastAPI (or serverless functions) |
 | Auth | Firebase Auth |
-| Email | sendlib |
-| Images | imgbb |
-| Storage | sendbyte |
+| Email | [sendlib](https://sendlib.samueltuoyo.com/) |
+| Images | [imgbb](https://imgbb.com) |
+| Storage | [byteship](https://byteship.dev/console) |
 | Deployment | Vercel |
 
 ---
@@ -122,7 +122,7 @@ FastAPI middleware
 Album Permissions
 ```
 
-Email notifications handled by **sendlib**.
+Email notifications handled by **[sendlib](https://sendlib.samueltuoyo.com/)**.
 
 ---
 
@@ -133,7 +133,7 @@ Images are hosted on **imgbb**:
 - Lightweight
 - Direct image URLs
 
-Long-term / binary storage on **sendbyte**.
+Long-term / binary storage on **[byteship](https://byteship.dev/console)**.
 
 ---
 
@@ -146,7 +146,7 @@ React App
 FastAPI
     │
  ├── Firebase Auth
- ├── sendbyte (storage)
+ ├── byteship (storage)
  ├── sendlib (email)
  └── imgbb (images)
 ```
