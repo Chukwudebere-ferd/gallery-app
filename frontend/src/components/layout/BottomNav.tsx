@@ -1,41 +1,39 @@
-import type { CSSProperties } from 'react'
-import IconButton from '../ui/IconButton'
-import {
-  HomeIcon,
-  SearchIcon,
-  BookmarkIcon,
-  UserIcon,
-  PlusIcon,
-} from '../ui/icons'
+import type { NavLinkRenderProps } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { HomeIcon, UserIcon, PlusIcon } from '../ui/icons'
 import './BottomNav.css'
 
+const itemClass = ({ isActive }: NavLinkRenderProps) =>
+  [
+    'icon-btn',
+    'bottom-nav__item',
+    isActive ? 'bottom-nav__item--active' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
 export default function BottomNav() {
-  const fabStyle = { '--fab-size': '56px' } as CSSProperties
   return (
     <nav className="bottom-nav" aria-label="Primary">
       <div className="bottom-nav__inner">
-        <IconButton label="Home" active className="bottom-nav__item">
+        <NavLink to="/" end aria-label="Home" className={itemClass}>
           <HomeIcon />
-        </IconButton>
-        <IconButton label="Search" className="bottom-nav__item">
-          <SearchIcon />
-        </IconButton>
+          <span className="bottom-nav__label">Home</span>
+        </NavLink>
 
-        <button
-          type="button"
+        <Link
+          to="/upload"
           className="bottom-nav__fab"
-          style={fabStyle}
           aria-label="Upload a photo or video"
         >
           <PlusIcon />
-        </button>
+          <span className="bottom-nav__label bottom-nav__label--fab">Upload</span>
+        </Link>
 
-        <IconButton label="Saved" className="bottom-nav__item">
-          <BookmarkIcon />
-        </IconButton>
-        <IconButton label="Profile" className="bottom-nav__item">
+        <NavLink to="/profile" aria-label="Profile" className={itemClass}>
           <UserIcon />
-        </IconButton>
+          <span className="bottom-nav__label">Profile</span>
+        </NavLink>
       </div>
     </nav>
   )

@@ -1,0 +1,139 @@
+.flame-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+}
+
+.flame-loader__fire {
+  position: relative;
+  display: inline-flex;
+  animation: loader-breathe 2.2s var(--ease) infinite;
+}
+
+.flame-loader__flame {
+  filter: grayscale(1) brightness(0.8) saturate(0.4);
+}
+
+/* Smoke puffs rising off the dead fire */
+.flame-loader__smoke {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.flame-loader__puff {
+  position: absolute;
+  left: 50%;
+  bottom: 78%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(111, 99, 81, 0.35) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  animation: loader-smoke 2.6s var(--ease-out) infinite;
+}
+
+.flame-loader__puff--1 {
+  animation-delay: 0s;
+}
+
+.flame-loader__puff--2 {
+  width: 14px;
+  height: 14px;
+  animation-delay: 0.9s;
+}
+
+.flame-loader__puff--3 {
+  width: 22px;
+  height: 22px;
+  animation-delay: 1.7s;
+}
+
+.flame-loader__message {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  color: var(--text);
+  animation: loader-message var(--dur-med) var(--ease) both;
+}
+
+.flame-loader__detail {
+  margin: calc(var(--space-2) * -1) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  max-width: 34ch;
+  animation: loader-message var(--dur-med) var(--ease) both;
+}
+
+.flame-loader__retry {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--on-accent);
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.flame-loader__retry:hover {
+  background: var(--accent-hover);
+}
+
+.flame-loader__retry:active {
+  transform: scale(0.97);
+}
+
+@keyframes loader-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes loader-message {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loader-smoke {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0) scale(0.6);
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-64px) scale(1.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flame-loader__fire,
+  .flame-loader__puff {
+    animation: none;
+  }
+}

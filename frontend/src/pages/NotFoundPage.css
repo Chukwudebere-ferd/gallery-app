@@ -1,0 +1,35 @@
+.nf {
+  max-width: 520px;
+  margin: var(--space-8) auto;
+  padding: var(--space-8) var(--space-5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.nf__mark {
+  color: var(--accent);
+  width: 40px;
+  height: 40px;
+}
+
+.nf h1 {
+  font-size: var(--fs-3xl);
+}
+
+.nf p {
+  color: var(--text-muted);
+}
+
+.nf__actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.nf__actions svg {
+  width: 18px;
+  height: 18px;
+}

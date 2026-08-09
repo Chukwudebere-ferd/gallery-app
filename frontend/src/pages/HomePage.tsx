@@ -1,22 +1,35 @@
-import { useMemo, useState } from 'react'
-import { media, tags } from '../services/mockData'
+import { useEffect, useMemo, useState } from 'react'
+import { media } from '../services/mockData'
+import { useShell } from '../components/layout/useShell'
+import { useTopics } from '../context/topicsContext'
 import ChipRow from '../components/feed/ChipRow'
 import MasonryGrid from '../components/feed/MasonryGrid'
 import Button from '../components/ui/Button'
+import FlameLoader from '../components/ui/FlameLoader'
 import { SearchIcon } from '../components/ui/icons'
 import './HomePage.css'
 
-export interface HomePageProps {
-  query: string
-}
+export default function HomePage() {
+  const { query } = useShell()
+  const { topics } = useTopics()
+  const [tag, setTag] = useState<string>('All')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  const [attempts, setAttempts] = useState(0)
 
-export default function HomePage({ query }: HomePageProps) {
-  const [tag, setTag] = useState<string>(tags[0])
+  useEffect(() => {
+    const t = window.setTimeout(
+      () => setStatus(attempts >= 2 ? 'error' : 'ready'),
+      700,
+    )
+    return () => window.clearTimeout(t)
+  }, [attempts])
+
+  const chips = useMemo(() => ['All', ...topics], [topics])
 
   const items = useMemo(() => {
     const q = query.trim().toLowerCase()
     return media.filter((m) => {
-      const matchesTag = tag === tags[0] || m.tag === tag
+      const matchesTag = tag === 'All' || m.tag === tag
       const matchesQuery =
         !q ||
         m.title.toLowerCase().includes(q) ||
@@ -27,9 +40,26 @@ export default function HomePage({ query }: HomePageProps) {
 
   return (
     <section className="home" aria-label="Photo feed">
-      <ChipRow chips={tags} active={tag} onSelect={setTag} />
+      <ChipRow chips={chips} active={tag} onSelect={setTag} />
 
-      {items.length > 0 ? (
+      {status === 'loading' ? (
+        <div className="home__status" role="status">
+          <FlameLoader size={88} label="Fetching your feed…" />
+        </div>
+      ) : status === 'error' ? (
+        <div className="home__status" role="alert">
+          <FlameLoader
+            variant="error"
+            size={88}
+            error="We couldn't reach the campfire."
+            errorDetail="The gallery server is unreachable right now. Check your connection and try again."
+            onRetry={() => {
+              setStatus('loading')
+              setAttempts((n) => n + 1)
+            }}
+          />
+        </div>
+      ) : items.length > 0 ? (
         <MasonryGrid items={items} />
       ) : (
         <div className="home__empty" role="status">
@@ -39,7 +69,7 @@ export default function HomePage({ query }: HomePageProps) {
             Nothing matches your current search or topic. Try a different
             topic or clear your filters.
           </p>
-          <Button variant="secondary" size="sm" onClick={() => setTag(tags[0])}>
+          <Button variant="secondary" size="sm" onClick={() => setTag('All')}>
             Clear filters
           </Button>
         </div>

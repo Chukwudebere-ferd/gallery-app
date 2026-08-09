@@ -1,0 +1,80 @@
+/* Shared styles for the auth flow pages (forgot / verify / reset) */
+
+.flow-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.flow-form__submit {
+  width: 100%;
+  margin-top: var(--space-1);
+}
+
+/* Code send/verify hint strip */
+.flow-code-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  margin-top: var(--space-1);
+}
+
+.flow-code-hint__mail {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+}
+
+.flow-code-hint__mail svg {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+}
+
+.flow-code-hint__time {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-code-hint__time--idle {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-faint);
+}
+
+/* Resend control */
+.flow-resend {
+  align-self: center;
+  margin-top: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    opacity var(--dur-fast) var(--ease);
+}
+
+.flow-resend:hover:not(:disabled) {
+  background: var(--accent-soft);
+}
+
+.flow-resend:disabled {
+  color: var(--text-faint);
+  cursor: default;
+}
+
+.auth__show {
+  display: inline-flex;
+}

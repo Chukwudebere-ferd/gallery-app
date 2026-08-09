@@ -24,6 +24,14 @@
   color: var(--text-faint);
 }
 
+.home__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45vh;
+  animation: fade-up var(--dur-med) var(--ease) both;
+}
+
 .home__empty h2 {
   font-size: var(--fs-xl);
 }

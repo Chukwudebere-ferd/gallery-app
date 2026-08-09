@@ -90,6 +90,23 @@
   flex-shrink: 0;
 }
 
+.app-header__avatar {
+  display: inline-flex;
+  border-radius: var(--radius-pill);
+  border: 2px solid transparent;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.app-header__avatar:hover {
+  border-color: var(--accent);
+}
+
+.app-header__avatar:active {
+  transform: scale(0.94);
+}
+
 @media (max-width: 720px) {
   .app-header__inner {
     flex-wrap: wrap;

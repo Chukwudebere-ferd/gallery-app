@@ -9,38 +9,108 @@
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   border-top: 1px solid var(--border);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .bottom-nav__inner {
+  position: relative;
   max-width: var(--content-max);
   margin: 0 auto;
-  height: var(--footer-nav-h);
+  height: calc(var(--footer-nav-h) + env(safe-area-inset-bottom));
+  padding: var(--space-1) var(--space-6) env(safe-area-inset-bottom);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
-  padding: 0 var(--space-4);
 }
 
+/* Standard items — pill with animated label on the active tab */
 .bottom-nav__item {
-  width: 52px;
-}
-
-.bottom-nav__fab {
-  width: var(--fab-size, 56px);
-  height: var(--fab-size, 56px);
-  margin-top: calc(-1 * var(--fab-size, 56px) * 0.42);
+  width: auto;
+  min-width: 78px;
+  height: 48px;
+  padding: 0 14px;
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 3px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.bottom-nav__item:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+.bottom-nav__item:active {
+  transform: scale(0.94);
+}
+
+.bottom-nav__item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.bottom-nav__item--active {
+  background: var(--accent-soft);
+  border-color: var(--ring);
+  color: var(--accent);
+}
+
+.bottom-nav__item--active:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.bottom-nav__label {
+  font-size: 10px;
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(3px);
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    opacity var(--dur-med) var(--ease),
+    transform var(--dur-med) var(--ease),
+    max-height var(--dur-med) var(--ease);
+}
+
+.bottom-nav__item--active .bottom-nav__label {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 14px;
+}
+
+/* Center upload FAB */
+.bottom-nav__fab {
+  position: relative;
+  align-self: center;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 60px;
+  height: 60px;
+  margin-top: -26px;
   border-radius: 50%;
   background: var(--accent);
   color: var(--on-accent);
-  box-shadow: 0 6px 20px var(--ring);
+  box-shadow: 0 8px 24px var(--ring);
   transition:
     background-color var(--dur-fast) var(--ease),
-    transform var(--dur-fast) var(--ease);
+    transform var(--dur-fast) var(--ease-spring);
+  animation: fade-up var(--dur-slow) var(--ease) both;
 }
 
 .bottom-nav__fab:hover {
@@ -48,13 +118,23 @@
 }
 
 .bottom-nav__fab:active {
-  transform: scale(0.94);
-  background: var(--accent-press);
+  transform: scale(0.92);
 }
 
 .bottom-nav__fab svg {
   width: 26px;
   height: 26px;
+}
+
+.bottom-nav__label--fab {
+  font-size: 9px;
+  line-height: 1;
+  color: var(--on-accent);
+  opacity: 0.92;
+}
+
+.bottom-nav__fab:hover .bottom-nav__label--fab {
+  color: var(--on-accent);
 }
 
 @media (max-width: 720px) {

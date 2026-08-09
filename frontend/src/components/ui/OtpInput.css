@@ -1,0 +1,84 @@
+.otp {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: var(--space-2);
+}
+
+.otp__input {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  text-align: center;
+  caret-color: var(--accent);
+  outline: none;
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.otp__input::placeholder {
+  color: var(--text-faint);
+}
+
+.otp__input:hover {
+  border-color: var(--text-faint);
+}
+
+.otp__input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--ring);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.otp--invalid .otp__input {
+  border-color: var(--danger);
+}
+
+.otp--invalid .otp__input:focus {
+  box-shadow: 0 0 0 4px var(--danger-soft);
+  border-color: var(--danger);
+}
+
+.otp--invalid {
+  animation: otp-shake 0.4s var(--ease);
+}
+
+@keyframes otp-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-width: 480px) {
+  .otp {
+    gap: var(--space-1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .otp--invalid {
+    animation: none;
+  }
+}

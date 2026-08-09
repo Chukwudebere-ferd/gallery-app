@@ -1,5 +1,7 @@
+import { Link, useNavigate } from 'react-router-dom'
 import Button from '../ui/Button'
 import Avatar from '../ui/Avatar'
+import { useUser } from '../../context/userContext'
 import { LogoMark, SearchIcon, CameraIcon } from '../ui/icons'
 import './AppHeader.css'
 
@@ -9,13 +11,16 @@ export interface AppHeaderProps {
 }
 
 export default function AppHeader({ query, onQueryChange }: AppHeaderProps) {
+  const navigate = useNavigate()
+  const { user } = useUser()
+
   return (
     <header className="app-header">
       <div className="app-header__inner">
-        <a className="app-header__logo" href="/" aria-label="Campfire — home">
+        <Link className="app-header__logo" to="/" aria-label="Campfire — home">
           <LogoMark className="app-header__mark" />
           <span className="app-header__word">Campfire</span>
-        </a>
+        </Link>
 
         <form
           className="app-header__search"
@@ -37,15 +42,23 @@ export default function AppHeader({ query, onQueryChange }: AppHeaderProps) {
         </form>
 
         <div className="app-header__actions">
-          <Button variant="primary" size="sm" className="app-header__upload">
+          <Button
+            variant="primary"
+            size="sm"
+            className="app-header__upload"
+            onClick={() => void navigate('/upload')}
+          >
             <CameraIcon />
             <span>Upload</span>
           </Button>
-          <Avatar
-            name="Maya Camper"
-            src="https://i.pravatar.cc/80?img=32"
-            size="sm"
-          />
+          <button
+            type="button"
+            className="app-header__avatar"
+            aria-label="View your profile"
+            onClick={() => void navigate('/profile')}
+          >
+            <Avatar name={user.name} src={user.avatarUrl} size="sm" />
+          </button>
         </div>
       </div>
     </header>

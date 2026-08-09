@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
 import type { MediaItem } from '../../services/mockData'
 import Avatar from '../ui/Avatar'
 import {
@@ -62,19 +63,25 @@ export default function PhotoCard({ item, index }: PhotoCardProps) {
   return (
     <article className="pc" style={mediaStyle}>
       <div className="pc__media">
-        {imageFailed ? (
-          <div className="pc__fallback">
-            <CameraIcon />
-          </div>
-        ) : (
-          <img
-            src={item.image}
-            alt={item.title}
-            loading="lazy"
-            decoding="async"
-            onError={() => setImageFailed(true)}
-          />
-        )}
+        <Link
+          to={`/post/${item.id}`}
+          className="pc__link"
+          aria-label={`Open ${item.title}`}
+        >
+          {imageFailed ? (
+            <div className="pc__fallback">
+              <CameraIcon />
+            </div>
+          ) : (
+            <img
+              src={item.image}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageFailed(true)}
+            />
+          )}
+        </Link>
 
         {item.type === 'video' && (
           <span className="pc__video" role="img" aria-label="Video">
@@ -95,7 +102,9 @@ export default function PhotoCard({ item, index }: PhotoCardProps) {
       </div>
 
       <div className="pc__meta">
-        <h3 className="pc__title">{item.title}</h3>
+        <Link to={`/post/${item.id}`} className="pc__title-link">
+          <h3 className="pc__title">{item.title}</h3>
+        </Link>
         <div className="pc__row">
           <span className="pc__author">
             <Avatar name={item.author.name} src={item.author.avatarUrl} size="xs" />

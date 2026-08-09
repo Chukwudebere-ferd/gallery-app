@@ -82,3 +82,14 @@
   color: var(--text);
   background: var(--surface-2);
 }
+
+.btn--danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid transparent;
+}
+
+.btn--danger:hover {
+  background: var(--danger);
+  color: var(--on-accent);
+}

@@ -20,8 +20,7 @@ export interface MediaItem {
   tag: string
 }
 
-export const tags = [
-  'All',
+export const presetTopics = [
   'Campfires',
   'Sunrise',
   'Trails',
